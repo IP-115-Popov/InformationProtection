@@ -90,7 +90,7 @@ class Laba1 {
 
         } while (v[0] != 0L)
 
-        println("x = " + v[1].toString() + "\ny = " + v[2].toString())
+        //println("x = " + v[1].toString() + "\ny = " + v[2].toString())
 
         return u[0]
     }
@@ -131,7 +131,7 @@ class Laba1 {
 
 
 
-        val p = 17//getPrimeRand()
+        val p = getPrimeRand()
         val g = getRang(p)
 
         val xA = Random.nextInt(1, 1_000).toLong()
