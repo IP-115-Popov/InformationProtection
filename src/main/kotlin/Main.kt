@@ -14,11 +14,23 @@ fun main() {
  println(z3)
 
  // Пример использования
- val a = 2L  // Основание
- val p = 23L // Простое число
- val y = 9L// Значение, для которого ищется дискретный логарифм
+ var a = 2L  // Основание
+ var p = 23L // Простое число
+ var y = Laba1().pow(a,5L,p)// Значение, для которого ищется дискретный логарифм
 
- val result = Laba1().babyStepGiantStep(a, p, y)
+ var result = Laba1().babyStepGiantStep(a, p, y)
+ if (result != -1L) {
+  println("Дискретный логарифм: x = $result")
+ } else {
+  println("Решение не найдено.")
+ }
+
+ // Пример использования
+  a = 10L  // Основание
+  p = 47L // Простое число
+  y = Laba1().pow(a,7L,p)// Значение, для которого ищется дискретный логарифм
+
+result = Laba1().babyStepGiantStep(a, p, y)
  if (result != -1L) {
   println("Дискретный логарифм: x = $result")
  } else {
