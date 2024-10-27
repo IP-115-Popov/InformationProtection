@@ -1,6 +1,7 @@
 package ru.sergey
 
 import kotlin.math.exp
+import kotlin.math.sqrt
 import kotlin.random.Random
 
 class Laba1 {
@@ -145,4 +146,33 @@ class Laba1 {
         val zBA = pow(yA, xB, p.toLong())
         return zAB == zBA
     }
+
+    fun babyStepGiantStep(a: Long, p: Long, y: Long): Long? {
+        val m = (sqrt(p.toDouble()) + 1).toInt()
+        val k = m
+
+        val A = Array(m,{0L})
+        val B = Array(k,{0L})
+
+        for (i in 1 until k) {
+            A[i] = (y % p * pow(a, i.toLong(), p)) % p;
+            B[i] = pow(a, m * (i.toLong()), p);
+        }
+
+        val bst = mutableMapOf<Long, Long>()
+
+        for (i in 0 until m) {
+            bst.put(A[i], i.toLong())
+        }
+
+        for (j in 0 until k) {
+            val i = bst.getOrDefault(B[j], null)
+
+            if (i != null) {
+                return  (j + 1) * m - i
+            }
+        }
+        return 0;
+    }
+
 }

@@ -12,4 +12,16 @@ fun main() {
 
  val z3 = Laba1().hellman()
  println(z3)
+
+ // Пример использования
+ val a = 2L  // Основание
+ val p = 23L // Простое число
+ val y = 9L// Значение, для которого ищется дискретный логарифм
+
+ val result = Laba1().babyStepGiantStep(a, p, y)
+ if (result != -1L) {
+  println("Дискретный логарифм: x = $result")
+ } else {
+  println("Решение не найдено.")
+ }
 }
