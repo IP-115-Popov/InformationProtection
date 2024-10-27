@@ -154,12 +154,13 @@ class Laba1 {
         val A = Array(m,{0L})
         val B = Array(k,{0L})
 
-        for (i in 1 until k) {
-            A[i] = (y % p * pow(a, i.toLong(), p)) % p;
-            B[i] = pow(a, m * (i.toLong()), p);
+        for (i in 1 .. k) {
+            A[i-1] = pow(a,(i-1).toLong(), p) * y % p
+            B[i-1] = pow(a,(i*m).toLong(),  p)
         }
 
         val bst = mutableMapOf<Long, Long>()
+
 
         for (i in 0 until m) {
             bst.put(A[i], i.toLong())

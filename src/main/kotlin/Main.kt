@@ -36,4 +36,16 @@ result = Laba1().babyStepGiantStep(a, p, y)
  } else {
   println("Решение не найдено.")
  }
+
+ // Пример использования
+ a = 10L  // Основание
+ p = 17L // Простое число
+ y = Laba1().pow(a, 100, p)// Значение, для которого ищется дискретный логарифм
+
+ result = Laba1().babyStepGiantStep(a, p, y)
+ if (result != -1L) {
+  println("Дискретный логарифм: x = $result")
+ } else {
+  println("Решение не найдено.")
+ }
 }
