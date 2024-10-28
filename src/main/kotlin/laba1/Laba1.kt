@@ -1,6 +1,5 @@
-package ru.sergey
+package ru.sergey.laba1
 
-import kotlin.math.exp
 import kotlin.math.sqrt
 import kotlin.random.Random
 

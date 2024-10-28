@@ -1,5 +1,7 @@
 package ru.sergey
 
+import ru.sergey.laba2.ShamirCipher
+
 fun main() {
  /*val af = Laba1().pow(10, 88, 17)
  println(af)
@@ -40,17 +42,17 @@ result = Laba1().babyStepGiantStep(a, p, y)
  // Пример использования
  a = 10L  // Основание
  p = 17L // Простое число
- y = Laba1().pow(a, 100, p)// Значение, для которого ищется дискретный логарифм
+ y = Laba1().pow(a, 4, p)// Значение, для которого ищется дискретный логарифм
 
  result = Laba1().babyStepGiantStep(a, p, y)
  if (result != -1L) {
   println("Дискретный логарифм: x = $result")
  } else {
   println("Решение не найдено.")
- }
- */
+ }*/
+
 
  //Laba2
-
- println(Laba2().ShamirCipher())
+ println("Laba2")
+ println(ShamirCipher().ShamirCipher())
 }

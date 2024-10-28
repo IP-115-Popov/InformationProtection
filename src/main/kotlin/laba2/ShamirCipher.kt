@@ -1,11 +1,10 @@
-package ru.sergey
+package ru.sergey.laba2
 
-import java.awt.image.BufferedImage
+import ru.sergey.laba1.Laba1
 import java.io.File
-import javax.imageio.ImageIO
 import kotlin.random.Random
 
-class Laba2 {
+class ShamirCipher {
 //    fun ShamirCipher(m : Int) : Boolean {
 //        val p = getBigPrimeRand(m).toLong() //m<p
 //
@@ -44,8 +43,8 @@ class Laba2 {
 
 
 
-    val inputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/i1.jpg"
-    val outputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/i2.jpg"
+    val inputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i1.jpg"
+    val outputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i2.jpg"
 
     // Преобразование JPG в массив Int
     val intArray = jpegToIntArray(inputFilePath)
