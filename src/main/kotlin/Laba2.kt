@@ -50,8 +50,11 @@ class Laba2 {
     // Преобразование JPG в массив Int
     val intArray = jpegToIntArray(inputFilePath)
 
+    val codeArr = intArray.map{ShamirCipherCecoding(it, p, cA, cB)}
+
+    val decode : IntArray = codeArr.map { ShamirCipherDecoding(it, p ,cA, cB).toInt() }.toIntArray()
     // Преобразование массива Int обратно в JPG
-    intArrayToJpeg(intArray, outputFilePath)
+    intArrayToJpeg(decode, outputFilePath)
 
 
 
