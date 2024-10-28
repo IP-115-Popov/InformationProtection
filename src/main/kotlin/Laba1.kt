@@ -96,39 +96,7 @@ class Laba1 {
         return u[0]
     }
     fun hellman() : Boolean {
-        fun getRang(p : Int) : Long {
-            val q = (p-1)/2
-            var g = 0
-            while (true) {
-                g = Random.nextInt(0, 100)
-                if ((1 < g) && (g < p - 1) && (pow(g.toLong(), q.toLong(), p.toLong()) != 1L))
-                    return g.toLong();
-                //println(p)
 
-            }
-        }
-        fun FermaCheck(p : Int) : Boolean {
-            if (p == 2)
-                return true
-            for (i in 0 until 100) {
-                val a = Random.nextInt(1, p-2) + 1L//getRang(p-2)+1
-                if (Euclid(a,p.toLong()) != 1L)
-                    return false
-                if (pow(a, p-1L, p.toLong()) != 1L)
-                    return false
-            }
-            return true
-        }
-        fun getPrimeRand() : Int {
-            var f = false
-            var p = 0
-            while (f == false) {
-                p = Random.nextInt(5, 1_000)
-                f = FermaCheck(p);
-
-            }
-            return p
-        }
 
 
 
@@ -176,4 +144,39 @@ class Laba1 {
         return 0;
     }
 
+
+    ////
+    fun getRang(p : Int) : Long {
+        val q = (p-1)/2
+        var g = 0
+        while (true) {
+            g = Random.nextInt(0, 100)
+            if ((1 < g) && (g < p - 1) && (pow(g.toLong(), q.toLong(), p.toLong()) != 1L))
+                return g.toLong();
+            //println(p)
+
+        }
+    }
+    fun FermaCheck(p : Int) : Boolean {
+        if (p == 2)
+            return true
+        for (i in 0 until 100) {
+            val a = Random.nextInt(1, p-2) + 1L//getRang(p-2)+1
+            if (Euclid(a,p.toLong()) != 1L)
+                return false
+            if (pow(a, p-1L, p.toLong()) != 1L)
+                return false
+        }
+        return true
+    }
+    fun getPrimeRand() : Int {
+        var f = false
+        var p = 0
+        while (f == false) {
+            p = Random.nextInt(5, 1_000)
+            f = FermaCheck(p);
+
+        }
+        return p
+    }
 }

@@ -1,7 +1,7 @@
 package ru.sergey
 
 fun main() {
- val af = Laba1().pow(10, 88, 17)
+ /*val af = Laba1().pow(10, 88, 17)
  println(af)
 
  val z1 = Laba1().pow(3,100,7)
@@ -48,4 +48,9 @@ result = Laba1().babyStepGiantStep(a, p, y)
  } else {
   println("Решение не найдено.")
  }
+ */
+
+ //Laba2
+
+ println(Laba2().ShamirCipher())
 }
