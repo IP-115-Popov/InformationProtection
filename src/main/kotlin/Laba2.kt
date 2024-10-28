@@ -28,7 +28,7 @@ class Laba2 {
 //        return x4 == m.toLong()
 //    }
     fun ShamirCipher() : Boolean {
-        var m : Int = 50
+        var m : Int = 50000000
         val p = getBigPrimeRand(m).toLong() //m<p
 
         var cA = 0L
@@ -56,12 +56,7 @@ class Laba2 {
     // Преобразование массива Int обратно в JPG
     intArrayToJpeg(decode, outputFilePath)
 
-
-
-
-        val x3 = ShamirCipherCecoding(m, p, cA, cB)
-        val x4 = ShamirCipherDecoding(x3, p ,cA, cB)
-        return m.toLong() == x4
+    return intArray[0] == decode[0]
     }
     fun ShamirCipherCecoding(m : Int, p : Long, cA : Long, cB : Long) : Long {
         val p = p.toLong() //m<p
