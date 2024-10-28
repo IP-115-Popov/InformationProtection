@@ -47,13 +47,13 @@ class ShamirCipher {
     val outputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i2.jpg"
 
     // Преобразование JPG в массив Int
-    val intArray = jpegToIntArray(inputFilePath)
+    val intArray = JpegToIntArrayConverter.jpegToIntArray(inputFilePath)
 
     val codeArr = intArray.map{ShamirCipherCecoding(it, p, cA, cB)}
 
     val decode : IntArray = codeArr.map { ShamirCipherDecoding(it, p ,cA, cB).toInt() }.toIntArray()
     // Преобразование массива Int обратно в JPG
-    intArrayToJpeg(decode, outputFilePath)
+    JpegToIntArrayConverter.intArrayToJpeg(decode, outputFilePath)
 
     return intArray[0] == decode[0]
     }
@@ -77,24 +77,7 @@ class ShamirCipher {
         val x4 = Laba1().pow(x3,dB,p)
         return x4
     }
-    fun jpegToIntArray(filePath: String): IntArray {
-        // Чтение файла в массив байтов
-        val bytes = File(filePath).readBytes()
-        // Преобразование массива байтов в массив Int
-        return bytes.map { it.toInt() and 0xFF }.toIntArray()
-    }
-    fun intArrayToJpeg(intArray: IntArray, outputPath: String) {
-        // Преобразование массива Int обратно в массив байтов
-        val bytes = ByteArray(intArray.size)
-        for (i in intArray.indices) {
-            bytes[i] = intArray[i].toByte()
-        }
-        // Запись массива байтов в файл
-        File(outputPath).writeBytes(bytes)
-    }
-    fun  ElGamalCipher() {}
-    fun  VernamCipher() {}
-    fun  RSACipher() {}
+
 
     fun getBigPrimeRand(start : Int) : Int {
         var f = false
