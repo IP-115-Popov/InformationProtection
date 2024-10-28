@@ -1,4 +1,27 @@
 package ru.sergey.laba2
 
-class VernamCipher {
+import kotlin.random.Random
+
+object VernamCipher {
+    fun Test() : Boolean {
+        val inputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i1.jpg"
+        val outputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i2.jpg"
+
+
+        val key = Random.nextInt(0, 1_000_000_000)
+        // Преобразование JPG в массив Int
+        val intArray = JpegToIntArrayConverter.jpegToIntArray(inputFilePath)
+
+        val codeArr = intArray.map{CecodingDececoding(key, it)}
+
+        val decode : IntArray = codeArr.map { CecodingDececoding(key,it)}.toIntArray()
+        // Преобразование массива Int обратно в JPG
+        JpegToIntArrayConverter.intArrayToJpeg(decode, outputFilePath)
+
+       // return intArray[0] == decode[0]
+        return true
+    }
+    fun CecodingDececoding(key : Int, message : Int) : Int {
+        return message xor key
+    }
 }
