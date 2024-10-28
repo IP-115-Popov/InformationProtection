@@ -89,7 +89,7 @@ class ShamirCipher {
         }
         return p
     }
-    private fun modInverse(d: Long, phi: Long): Long {
+    fun modInverse(d: Long, phi: Long): Long {
         var (g, x ,y) = Euclid(d, phi)
         return (x % phi + phi) % phi;
     }

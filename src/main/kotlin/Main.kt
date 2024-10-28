@@ -1,6 +1,7 @@
 package ru.sergey
 
 import ru.sergey.laba2.ElGamalCipher
+import ru.sergey.laba2.RSACipher
 import ru.sergey.laba2.ShamirCipher
 import ru.sergey.laba2.VernamCipher
 
@@ -56,7 +57,8 @@ result = Laba1().babyStepGiantStep(a, p, y)
 
  //Laba2
  println("Laba2")
- //println(ShamirCipher().ShamirCipher())
- //println(VernamCipher.Test())
+ println(ShamirCipher().ShamirCipher())
+ println(VernamCipher.Test())
  println(ElGamalCipher.Test())
+ println(RSACipher.Test())
 }
