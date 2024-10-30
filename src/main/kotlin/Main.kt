@@ -1,12 +1,13 @@
 package ru.sergey
 
+import ru.sergey.laba1.Laba1
 import ru.sergey.laba2.ElGamalCipher
 import ru.sergey.laba2.RSACipher
 import ru.sergey.laba2.ShamirCipher
 import ru.sergey.laba2.VernamCipher
 
 fun main() {
- /*val af = Laba1().pow(10, 88, 17)
+ val af = Laba1().pow(10, 88, 17)
  println(af)
 
  val z1 = Laba1().pow(3,100,7)
@@ -52,7 +53,7 @@ result = Laba1().babyStepGiantStep(a, p, y)
   println("Дискретный логарифм: x = $result")
  } else {
   println("Решение не найдено.")
- }*/
+ }
 
 
  //Laba2
