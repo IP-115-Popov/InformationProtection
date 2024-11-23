@@ -12,10 +12,10 @@ object ElGamalSign {
         val inputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba3/1b.jpg"
         val signFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i2.jpg"
 //        //генерим параметры
-//        val p = getBigPrimeRand(5000000)
-//        val g = getRang(p).toInt()
-//        val cB = Random.nextInt(1, p - 1)
-//        val dB = Laba1().pow(g.toLong(), cB.toLong(), p.toLong())
+        val p = getBigPrimeRand(50000)
+        val g = getRang(p).toInt()
+        val x = Random.nextInt(1, p - 1)
+        val y = Laba1().pow(g.toLong(), x.toLong(), p.toLong())
 
         //
         val intArray = JpegToIntArrayConverter.jpegToIntArray(inputFilePath)
@@ -23,36 +23,27 @@ object ElGamalSign {
         val stringArray: String = intArray.fold("") { acc: String, i: Int ->
             acc + i.toString()
         }
-//
-        val p = 23//getBigPrimeRand(5000000)
-        val g = 5//getRang(p).toInt()
-        //val cB = //Random.nextInt(1, p - 1)
-        //val dB = //Laba1().pow(g.toLong(), cB.toLong(), p.toLong())
-         val x = 7//cB
-         val y = 17//dB
-  //
 
         val m = stringArray
-       // val x = cB
-       // val y = dB
 
-        var hash = 3//md5BigInteger(m).toInt()
 
-        var k = 5
-//        do {
-//            k = Random.nextInt(0, p - 1)
-//            val v = Laba1().Euclid(k.toLong(), p - 1L)
-//        } while (v != 1L)
+        var hash = md5BigInteger(m).mod(Int.MAX_VALUE.toBigInteger()).toInt()
+
+        var k = 0
+        do {
+            k = Random.nextInt(0, p - 1)
+            val v = Laba1().Euclid(k.toLong(), p - 1L)
+        } while (v != 1L)
 
         val r = pow2(g.toLong(), k.toLong(), p.toLong())
 
-        val u =17// Math.abs((hash - x * r)) % (p - 1)
+        val u = Math.abs((hash - x * r)) % (p - 1)
 
         val s = (ShamirCipher().modInverse(k.toLong(), p-1L) * u) % (p-1)
 
 
 
-        val a = pow2(y.toLong(), r, p.toLong())
+        val a = pow2(y, r, p.toLong())
         val b = pow2(r, s, p.toLong())
         val resL = ( a * b) % p
 
