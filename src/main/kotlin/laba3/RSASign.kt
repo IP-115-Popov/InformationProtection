@@ -9,7 +9,7 @@ import kotlin.random.Random
 
 object RSASign {
     fun sign() {
-        val inputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i1.jpg"
+        val inputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba3/1b.jpg"
         val signFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i2.jpg"
 
         val p = ShamirCipher().getBigPrimeRand(10000)
@@ -29,7 +29,7 @@ object RSASign {
         var c = ShamirCipher().modInverse(d, f)
 
         // Преобразование JPG в массив Int
-        val intArray = arrayOf(1,2,3)// JpegToIntArrayConverter.jpegToIntArray(inputFilePath)
+        val intArray = JpegToIntArrayConverter.jpegToIntArray(inputFilePath)
 
         val stringArray: String = intArray.fold("") {
             acc: String, i: Int -> acc + i.toString()
