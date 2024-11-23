@@ -4,10 +4,10 @@ import kotlin.random.Random
 
 object VernamCipher {
     fun Test() : Boolean {
-        val inputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i1.jpg"
-        val outputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i2.jpg"
+        val inputFilePath = "C:/Users/Lenor/Desktop/kotlinProject/InformationProtection/src/main/kotlin/laba2/i1.jpg"
+        val outputFilePath = "C:/Users/Lenor/Desktop/kotlinProject/InformationProtection/src/main/kotlin/laba2/i2.jpg"
 
-        val outputFilePathE = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/e2.jpg"
+        val outputFilePathE = "C:/Users/Lenor/Desktop/kotlinProject/InformationProtection/src/main/kotlin/laba2/e2.jpg"
 
 
         val key = Random.nextInt(0, 1_000_000_000)

@@ -6,8 +6,8 @@ import kotlin.random.nextLong
 
 object RSACipher {
     fun Test() : Boolean {
-        val inputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i1.jpg"
-        val outputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i2.jpg"
+        val inputFilePath = "C:/Users/Lenor/Desktop/kotlinProject/InformationProtection/src/main/kotlin/laba2/i1.jpg"
+        val outputFilePath = "C:/Users/Lenor/Desktop/kotlinProject/InformationProtection/src/main/kotlin/laba2/i2.jpg"
 
 
         val p = ShamirCipher().getBigPrimeRand(10000)
