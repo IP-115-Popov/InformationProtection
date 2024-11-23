@@ -56,9 +56,11 @@ result = Laba1().babyStepGiantStep(a, p, y)
 
 
  //Laba2
- println("Laba2")
- println(ShamirCipher().ShamirCipher())
- println(VernamCipher.Test())
- println(ElGamalCipher.Test())
- println(RSACipher.Test())
+// println("Laba2")
+// println(ShamirCipher().ShamirCipher())
+// println(VernamCipher.Test())
+// println(ElGamalCipher.Test())
+// println(RSACipher.Test())
+ //lABA3
+
 }
