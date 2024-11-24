@@ -2,6 +2,7 @@ package ru.sergey.laba3
 
 import ru.sergey.laba1.Laba1
 import ru.sergey.laba2.ElGamalCipher.getBigPrimeRand
+import ru.sergey.laba2.JpegToIntArrayConverter
 import ru.sergey.laba2.ShamirCipher
 import java.security.SecureRandom
 import kotlin.random.Random
@@ -46,9 +47,21 @@ object GostInt {
     }
 
     fun sign() {
-        val m = "pjoafs"
+        val inputFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba3/1b.jpg"
+        val signFilePath = "C:/Users/serzh/IdeaProjects/InformationProtection/src/main/kotlin/laba2/i2.jpg"
 
+        //данные
+        val intArray = JpegToIntArrayConverter.jpegToIntArray(inputFilePath)
+
+        val stringArray: String = intArray.fold("") { acc: String, i: Int ->
+            acc + i.toString()
+        }
+
+        val m = stringArray
+
+        //hash
         var h = md5BigInteger(m).mod(Int.MAX_VALUE.toBigInteger()).toInt()
+
         //генерим параметры
         // Устанавливаем верхний предел для q (например, до 1000)
         val maxQ = 1000
@@ -97,6 +110,15 @@ object GostInt {
         val u =(( au1 * uu2)%p)%q
 
         println("Проверка: " + (u==r))
+
+        // Вывод для проверки
+        println("Подпись (s) = $s")
+        println("Хеш сообщения (y) = $h")
+
+        LongFileStorage.saveToFile(s.toLong(), signFilePath)
+
+        val sformdile = LongFileStorage.loadFromFile(signFilePath)
+        println("s form file = $sformdile")
 
     }
 }
