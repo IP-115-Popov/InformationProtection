@@ -32,6 +32,25 @@ fun pow2(base: Long, exponent: Long, modulus: Long): Long {
 
     return result
 }
+fun pow2(base: Int, exponent: Int, modulus: Int): Int {
+    require(modulus > 0) { "Модуль должен быть больше 0." }
+    require(base >= 0 && exponent >= 0) { "Основание и показатель степени должны быть неотрицательными." }
+
+    var result = 1
+    var b = base % modulus
+    var exp = exponent
+
+    while (exp > 0) {
+        if (exp % 2 == 1) { // Если показатель степени нечетный
+            result = (result * b) % modulus
+        }
+        exp /= 2
+        b = (b * b) % modulus // Возводим основание в квадрат
+    }
+
+    return result
+}
+
 //fun pow2(base: BigInteger, exponent: BigInteger, modulus: BigInteger): BigInteger {
 //    require(modulus > BigInteger.ZERO) { "Модуль должен быть больше 0." }
 //    require(base >= BigInteger.ZERO && exponent >= BigInteger.ZERO) { "Основание и показатель степени должны быть неотрицательными." }
