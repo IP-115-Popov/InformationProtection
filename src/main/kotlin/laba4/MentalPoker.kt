@@ -60,33 +60,55 @@ object MentalPoker {
         val pullCart = getPullCard()
         val keys = pullCart.keys.shuffled().take(9)
 
+
         //game
         val Alisa = mutableListOf<Int>()
         val Bob = mutableListOf<Int>()
         val commonPull = mutableListOf<Int>()
+        val peopleCount = 2
+        val handsCardCount = 2
+
+        //пудлл кард хранится на сервере игроки могут отсылать полученные карты
+
+        commonPull.addAll(keys)
 
         //step1
         var uList = keys.map { pow2(it.toLong(), cA, p.toLong()) }.shuffled()
 
-        //step2
-        val uA = uList.shuffled().first()//боб выдаёт Алисе карту
-        uList = uList - uA
-        //Алтса расшифровывает кату
-        val cardA = pow2(uA,dA,p.toLong()).toInt()
-        Alisa.add(cardA)
+        repeat(handsCardCount){//step2
+            val uA = uList.shuffled().first()//боб выдаёт Алисе карту
+            uList = uList - uA
+            //Алтса расшифровывает кату
+            val cardA = pow2(uA, dA, p.toLong()).toInt()
+            Alisa.add(cardA)
+            commonPull.remove(cardA)
+        }
 
         //step3
         uList = uList.map { pow2(it, cB, p.toLong()) }.shuffled()
 
-        //step4
-        val uB = uList.shuffled().first()//Алтса выдаёт бобу карту
-        uList = uList - uB
-        val wB = pow2(uB, dA, p.toLong())
-        //боб расшифровывает кату
-        val cardB = pow2(wB,dB,p.toLong()).toInt()
+        repeat(handsCardCount){//step4
+            val uB = uList.shuffled().first()//Алтса выдаёт бобу карту
+            uList = uList - uB
+            val wB = pow2(uB, dA, p.toLong())
+            //боб расшифровывает кату
+            val cardB = pow2(wB, dB, p.toLong()).toInt()
+            Bob.add(cardB)
+            commonPull.remove(cardB)
+        }
 
-        Bob.add(cardB)
 
+
+
+
+        println(keys)
+        println(commonPull)
+        println(Alisa)
+        println(Bob)
+        //проверки
+        println(keys.containsAll(Alisa))
+        println(keys.containsAll(Bob))
+        println(keys.containsAll(commonPull))
     }
 }
 
