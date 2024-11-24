@@ -31,7 +31,58 @@ object MentalPoker {
 
         return cardMap
     }
+    fun displayCard(card : String, line: Int = 0) {
+        val kind: Char
+        val rang: Char
 
+        val rangParam: String = card.split(' ').first()
+        val kindParam: String = card.split(' ').last()
+
+        when (kindParam) {
+            "Пики" -> kind = '\u2660'  // ♠
+            "Червы" -> kind = '\u2661'  // ♡
+            "Бубны" -> kind = '\u2662'  // ♢
+            "Трефы" -> kind = '\u2663'  // ♣
+            else -> return
+        }
+
+        rang = when (rangParam) {
+            "2" -> '2'
+            "3" -> '3'
+            "4" -> '4'
+            "5" -> '5'
+            "6" -> '6'
+            "7" -> '7'
+            "8" -> '8'
+            "9" -> '9'
+            "10" -> '0'
+            "Валет"-> 'J'
+            "Дама" -> 'Q'
+            "Король" -> 'K'
+            "Туз" -> 'A'
+            else -> return
+        }
+
+        if (rang != '0') {
+            when(line) {
+                0 -> print("┌───────┐")
+                1 -> print ("│ $kind     │")
+                2 -> print ("│ $rang     │")
+                3 -> print ("│     $rang │")
+                4 -> print ("│     $kind │")
+                5 -> print ("└───────┘")
+            }
+        } else {
+            when(line) {
+                0 -> print("┌───────┐")
+                1 -> print("│ $kind     │")
+                2 -> print ("│ 10    │")
+                3 -> print ("│    10 │")
+                4 -> print ("│     $kind │")
+                5 -> print ("└───────┘")
+            }
+        }
+    }
     fun play() {
         val p = ShamirCipher().getBigPrimeRand(10000)
         //Alisa
@@ -57,8 +108,11 @@ object MentalPoker {
         } while ((cB * dB) % (p - 1) != 1L)
 
         //cart 9
+        val peopleCount = 2
+        val handsCardCount = 2
+
         val pullCart = getPullCard()
-        val keys = pullCart.keys.shuffled().take(9)
+        val keys = pullCart.keys.shuffled().take(handsCardCount*peopleCount+5)
 
 
         //game
@@ -66,8 +120,7 @@ object MentalPoker {
         val Bob = mutableListOf<Int>()
         val Job =  mutableListOf<Int>()
         val commonPull = mutableListOf<Int>()
-        val peopleCount = 3
-        val handsCardCount = 2
+
 
         //пудлл кард хранится на сервере игроки могут отсылать полученные карты
 
@@ -107,9 +160,7 @@ object MentalPoker {
         }
 
 
-
-
-
+        //порядок у карт в киоске был взят
         println(keys)
         println(commonPull)
         println(Alisa)
@@ -118,6 +169,16 @@ object MentalPoker {
         println(keys.containsAll(Alisa))
         println(keys.containsAll(Bob))
         println(keys.containsAll(commonPull))
+        //вывод карт
+
+        println("keys")
+        (0..5).forEach{ line -> keys.forEach{ displayCard(pullCart[it]!!, line) };println() }
+        println("Alisa")
+        (0..5).forEach{ line -> Alisa.forEach{displayCard(pullCart[it]!!, line)}; println()}
+        println("Bob")
+        (0..5).forEach{ line -> Bob.forEach{displayCard(pullCart[it]!!, line)}; println()}
+        println("commonPull")
+        (0..5).forEach{ line -> commonPull.forEach{displayCard(pullCart[it]!!, line)}; println()}
     }
 }
 
