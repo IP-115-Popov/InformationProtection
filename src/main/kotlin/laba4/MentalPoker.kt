@@ -3,6 +3,7 @@ package ru.sergey.laba4
 import ru.sergey.laba1.Laba1
 import ru.sergey.laba2.ShamirCipher
 import ru.sergey.laba3.pow2
+import javax.annotation.processing.Generated
 import kotlin.random.Random
 
 object MentalPoker {
@@ -83,9 +84,8 @@ object MentalPoker {
             }
         }
     }
-    fun play() {
-        val p = ShamirCipher().getBigPrimeRand(10000)
-        //Alisa
+
+    fun GeneratedCD(p : Int) :Pair<Long, Long> {
         var cA = 0L
         do {
             cA = Random.nextLong(0, p - 1L)
@@ -96,89 +96,172 @@ object MentalPoker {
             dA = ShamirCipher().modInverse(cA, p - 1L)
         } while ((cA * dA) % (p - 1) != 1L)
 
-        //Bob
-        var cB = 0L
-        do {
-            cB = Random.nextLong(0, p - 1L)
-        } while (Laba1().Euclid(cB, p - 1L) != 1L)
+        return Pair(cA,dA)
+    }
+    data class Player(
+        val c : Long,
+        val d: Long,
+        var carts : List<Int>,
+        var shiferCars : List<Long>,
+    )
+    fun play() {
 
-        var dB = 0L
-        do {
-            dB = ShamirCipher().modInverse(cB, p - 1L)
-        } while ((cB * dB) % (p - 1) != 1L)
+        val peopleCount = 3
+        val handsCardCount = 5
 
-        //cart 9
-        val peopleCount = 2
-        val handsCardCount = 2
+
 
         val pullCart = getPullCard()
-        val keys = pullCart.keys.shuffled().take(handsCardCount*peopleCount+5)
+        val keys = pullCart.keys.shuffled()
 
 
-        //game
-        val Alisa = mutableListOf<Int>()
-        val Bob = mutableListOf<Int>()
-        val Job =  mutableListOf<Int>()
-        val commonPull = mutableListOf<Int>()
+        val p = ShamirCipher().getBigPrimeRand(10000)
 
 
-        //пудлл кард хранится на сервере игроки могут отсылать полученные карты
 
-        commonPull.addAll(keys)
+        val players = (0..peopleCount).map {
+            val (c,d) = GeneratedCD(p)
+            Player(
+                c,
+                d,
+                listOf(),
+                listOf(),
+            )
+        }
 
-        var uList = emptyList<Long>()
-        //Алиса
-        repeat(1){
-            //step1
-            uList = keys.map { pow2(it.toLong(), cA, p.toLong()) }.shuffled()
+        //step1
+        var shifrCards : List<Long> = keys.map { it.toLong() }
+        players.forEach { player->
+            shifrCards = shifrCards.map { pow2(it.toLong(), player.c, p.toLong()) }.shuffled()
+        }
+        //step2
 
-            repeat(handsCardCount) {
-                //step2
-                val uA = uList.shuffled().first()//боб выдаёт Алисе карту
-                uList = uList - uA
-                //Алтса расшифровывает кату
-                val cardA = pow2(uA, dA, p.toLong()).toInt()
-                Alisa.add(cardA)
-                commonPull.remove(cardA)
+        players.forEach { player->
+            val cardForPlayer = shifrCards.take(handsCardCount)
+            player.shiferCars = cardForPlayer
+
+            shifrCards = shifrCards - cardForPlayer
+
+        }
+
+        players.forEach { player->
+            players.forEach { j ->
+                player.shiferCars = player.shiferCars.map { k ->
+                    pow2(k, j.d, p.toLong())
+                }
+            }
+            shifrCards = shifrCards.map { k ->
+                pow2(k, player.d, p.toLong())
             }
         }
-        //Боб
-        repeat(1) {
-            //step3
-            uList = uList.map { pow2(it, cB, p.toLong()) }.shuffled()
 
-            repeat(handsCardCount) {
-                //step4
-                val uB = uList.shuffled().first()//Алтса выдаёт бобу карту
-                uList = uList - uB
-                val wB = pow2(uB, dA, p.toLong())
-                //боб расшифровывает кату
-                val cardB = pow2(wB, dB, p.toLong()).toInt()
-                Bob.add(cardB)
-                commonPull.remove(cardB)
-            }
+        players.forEach { player->
+            player.carts = player.shiferCars.map { it.toInt() }
         }
+        val pullCartOst = shifrCards.take(5)
+
+        println(keys)
+
+        println(pullCartOst)
+        println("commonPull")
+        (0..5).forEach{ line -> pullCartOst.forEach{displayCard(pullCart[it.toInt()]!!, line)}; println()}
+
+        players.forEachIndexed{ i, player ->
+            println("player: " + (i+1).toString())
+            println(player.carts)
+            (0..5).forEach{ line -> player.carts.forEach{displayCard(pullCart[it.toInt()]!!, line)}; println()}
+
+        }
+
 
 
         //порядок у карт в киоске был взят
-        println(keys)
-        println(commonPull)
-        println(Alisa)
-        println(Bob)
-        //проверки
-        println(keys.containsAll(Alisa))
-        println(keys.containsAll(Bob))
-        println(keys.containsAll(commonPull))
-        //вывод карт
+        //println(keys)
+//        println(commonPull)
+//        println(Alisa)
+//        println(Bob)
+//        //проверки
+//        println(keys.containsAll(Alisa))
+//        println(keys.containsAll(Bob))
+//        println(keys.containsAll(commonPull))
+//        //вывод карт
+//
+//        println("keys")
+//        (0..5).forEach{ line -> keys.forEach{ displayCard(pullCart[it]!!, line) };println() }
+//        println("Alisa")
+//        (0..5).forEach{ line -> Alisa.forEach{displayCard(pullCart[it]!!, line)}; println()}
+//        println("Bob")
+//        (0..5).forEach{ line -> Bob.forEach{displayCard(pullCart[it]!!, line)}; println()}
+//        println("commonPull")
+//        (0..5).forEach{ line -> commonPull.forEach{displayCard(pullCart[it]!!, line)}; println()}
 
-        println("keys")
-        (0..5).forEach{ line -> keys.forEach{ displayCard(pullCart[it]!!, line) };println() }
-        println("Alisa")
-        (0..5).forEach{ line -> Alisa.forEach{displayCard(pullCart[it]!!, line)}; println()}
-        println("Bob")
-        (0..5).forEach{ line -> Bob.forEach{displayCard(pullCart[it]!!, line)}; println()}
-        println("commonPull")
-        (0..5).forEach{ line -> commonPull.forEach{displayCard(pullCart[it]!!, line)}; println()}
+
+
+//        val (cA, dA) = GeneratedCD(p)
+//        val (cB, dB) = GeneratedCD(p)
+//        //game
+//        val Alisa = mutableListOf<Int>()
+//        val Bob = mutableListOf<Int>()
+//        val commonPull = mutableListOf<Int>()
+//
+//
+//        //пудлл кард хранится на сервере игроки могут отсылать полученные карты
+//
+//        commonPull.addAll(keys)
+//
+//        var uList = emptyList<Long>()
+//        //Алиса
+//        repeat(1){
+//            //step1
+//            uList = keys.map { pow2(it.toLong(), cA, p.toLong()) }.shuffled()
+//
+//            repeat(handsCardCount) {
+//                //step2
+//                val uA = uList.shuffled().first()//боб выдаёт Алисе карту
+//                uList = uList - uA
+//                //Алтса расшифровывает кату
+//                val cardA = pow2(uA, dA, p.toLong()).toInt()
+//                Alisa.add(cardA)
+//                commonPull.remove(cardA)
+//            }
+//        }
+//        //Боб
+//        repeat(1) {
+//            //step3
+//            uList = uList.map { pow2(it, cB, p.toLong()) }.shuffled()
+//
+//            repeat(handsCardCount) {
+//                //step4
+//                val uB = uList.shuffled().first()//Алтса выдаёт бобу карту
+//                uList = uList - uB
+//                val wB = pow2(uB, dA, p.toLong())
+//                //боб расшифровывает кату
+//                val cardB = pow2(wB, dB, p.toLong()).toInt()
+//                Bob.add(cardB)
+//                commonPull.remove(cardB)
+//            }
+//        }
+//
+//
+//        //порядок у карт в киоске был взят
+//        println(keys)
+//        println(commonPull)
+//        println(Alisa)
+//        println(Bob)
+//        //проверки
+//        println(keys.containsAll(Alisa))
+//        println(keys.containsAll(Bob))
+//        println(keys.containsAll(commonPull))
+//        //вывод карт
+//
+//        println("keys")
+//        (0..5).forEach{ line -> keys.forEach{ displayCard(pullCart[it]!!, line) };println() }
+//        println("Alisa")
+//        (0..5).forEach{ line -> Alisa.forEach{displayCard(pullCart[it]!!, line)}; println()}
+//        println("Bob")
+//        (0..5).forEach{ line -> Bob.forEach{displayCard(pullCart[it]!!, line)}; println()}
+//        println("commonPull")
+//        (0..5).forEach{ line -> commonPull.forEach{displayCard(pullCart[it]!!, line)}; println()}
     }
 }
 
